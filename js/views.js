@@ -6,13 +6,15 @@
 function viewOnboarding1(){
   const html = `
   <div class="onb-screen">
-    <div class="onb-progress"><span class="on"></span><span></span><span></span></div>
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-      <div class="orb">${icon('sparkles')}</div>
+    <div class="onb-image-wrap">
+      <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80" alt="Welcome" class="onb-image" />
+    </div>
+    <div class="onb-content">
+      <div class="onb-progress"><span class="on"></span><span></span><span></span></div>
       <h1 class="onb-title">Welcome to Nexus</h1>
       <p class="onb-body">Your second brain for opportunities, deadlines, and everything worth remembering.</p>
+      <button class="btn btn-primary btn-block" data-nav="onboarding2">Continue ${icon('arrowUpRight')}</button>
     </div>
-    <button class="btn btn-primary btn-block" data-nav="onboarding2">Continue ${icon('arrowUpRight')}</button>
   </div>`;
   return { html, mount(){} };
 }
@@ -20,15 +22,17 @@ function viewOnboarding1(){
 function viewOnboarding2(){
   const html = `
   <div class="onb-screen">
-    <div class="onb-progress"><span class="on"></span><span class="on"></span><span></span></div>
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-      <div class="orb" style="background:linear-gradient(135deg,#4E7FA6,#9B85D6);">${icon('memory')}</div>
-      <h1 class="onb-title">We remember everything</h1>
-      <p class="onb-body">Never forget a deadline. Never miss an opportunity. Just talk to Nexa — we'll organize the rest automatically.</p>
+    <div class="onb-image-wrap">
+      <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" alt="Memory" class="onb-image" />
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <button class="btn btn-primary btn-block" data-nav="onboarding3">Continue ${icon('arrowUpRight')}</button>
-      <button class="btn btn-ghost btn-block" data-nav="onboarding1">Back</button>
+    <div class="onb-content">
+      <div class="onb-progress"><span class="on"></span><span class="on"></span><span></span></div>
+      <h1 class="onb-title">We remember everything</h1>
+      <p class="onb-body">Never forget a deadline. Never miss an opportunity. Just talk to Nexa — we'll organize the rest.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;">
+        <button class="btn btn-primary btn-block" data-nav="onboarding3">Continue ${icon('arrowUpRight')}</button>
+        <button class="btn btn-ghost btn-block" data-nav="onboarding1">Back</button>
+      </div>
     </div>
   </div>`;
   return { html, mount(){} };
@@ -45,19 +49,24 @@ function viewOnboarding3(){
     { key:'drive', label:'Google Drive', ic:'cloud', tone:'green' },
   ];
   const html = `
-  <div class="onb-screen" style="text-align:left;">
-    <div class="onb-progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
-    <h1 class="onb-title" style="text-align:center;">Connect your world</h1>
-    <p class="onb-body" style="text-align:center;">Nexus reads context from the places you already work. You can change this anytime in Settings.</p>
-    <div class="connect-list">
-      ${rows.map(r=>`
-        <div class="connect-row">
-          <div class="ci tone-${r.tone}">${icon(r.ic)}</div>
-          <div class="cn">${r.label}</div>
-          <button class="toggle ${s.user.connected[r.key]?'on':''}" data-action="toggleConnect" data-id="${r.key}"></button>
-        </div>`).join('')}
+  <div class="onb-screen">
+    <div class="onb-image-wrap short">
+      <img src="https://images.unsplash.com/photo-1512758117926-571de41473d0?auto=format&fit=crop&w=800&q=80" alt="Connect" class="onb-image" />
     </div>
-    <button class="btn btn-primary btn-block" data-action="finishOnboarding">Enter Nexus AI ${icon('arrowUpRight')}</button>
+    <div class="onb-content" style="padding-top:16px;">
+      <div class="onb-progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      <h1 class="onb-title" style="margin-bottom:4px;">Connect your world</h1>
+      <p class="onb-body" style="margin-bottom:0;">Nexus reads context from the places you already work.</p>
+      <div class="connect-list">
+        ${rows.map(r=>`
+          <div class="connect-row">
+            <div class="ci tone-${r.tone}">${icon(r.ic)}</div>
+            <div class="cn">${r.label}</div>
+            <button class="toggle ${s.user.connected[r.key]?'on':''}" data-action="toggleConnect" data-id="${r.key}"></button>
+          </div>`).join('')}
+      </div>
+      <button class="btn btn-primary btn-block" style="margin-top:20px;" data-action="finishOnboarding">Enter Nexus AI ${icon('arrowUpRight')}</button>
+    </div>
   </div>`;
   return { html, mount(){} };
 }

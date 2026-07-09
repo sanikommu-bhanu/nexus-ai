@@ -6,7 +6,7 @@
       as long as the OS has delivered the push to the browser in the background.
    ===================================================================== */
 
-const CACHE_NAME = 'nexus-ai-v4';
+const CACHE_NAME = 'nexus-ai-v5';
 const APP_SHELL = [
   './',
   './index.html',

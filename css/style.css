@@ -298,3 +298,68 @@ svg { width: 22px; height: 22px; flex-shrink: 0; }
 
 .divider{ height:1px; background: var(--hairline); margin:16px 0; }
 .hidden{ display:none !important; }
+
+/* ================= ONBOARDING ================= */
+.onb-screen {
+  flex: 1; display: flex; flex-direction: column; position: relative;
+  overflow: hidden; background: var(--cream); animation: fadeSlide .3s ease;
+}
+.onb-image-wrap {
+  position: relative; height: 50vh; width: 100%;
+}
+.onb-image-wrap.short { height: 26vh; }
+.onb-image {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 0 0 32px 32px;
+}
+.onb-image-wrap::after {
+  content: ''; position: absolute; inset: 0; border-radius: 0 0 32px 32px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(251,249,246,1) 100%);
+}
+.onb-content {
+  flex: 1; padding: 24px 20px 40px; display: flex; flex-direction: column;
+}
+.onb-progress {
+  display: flex; justify-content: center; gap: 6px; margin-bottom: 24px;
+}
+.onb-progress span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ink-faint); transition: .3s;
+}
+.onb-progress span.on {
+  background: var(--brand-dark); width: 24px; border-radius: 4px;
+}
+.onb-title {
+  font-size: 26px; font-weight: 700; margin-bottom: 12px; text-align: center;
+}
+.onb-body {
+  font-size: 14px; color: var(--ink-soft); text-align: center;
+  line-height: 1.5; margin-bottom: auto;
+}
+.connect-list {
+  display: flex; flex-direction: column; gap: 12px; margin: 20px 0 auto;
+}
+.connect-row {
+  display: flex; align-items: center; padding: 12px 14px;
+  background: var(--paper); border-radius: 16px;
+  border: 1px solid var(--hairline); gap: 12px; box-shadow: var(--shadow-soft);
+}
+.connect-row .ci {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.connect-row .ci.tone-blue { color: #4E7FA6; background: #E6F0F9; }
+.connect-row .ci.tone-purple { color: #8C7CA5; background: #F0EAF5; }
+.connect-row .ci.tone-orange { color: #D99A4E; background: #FDF3E6; }
+.connect-row .ci.tone-red { color: #D65A5A; background: #FCEAEA; }
+.connect-row .ci.tone-green { color: #5F8F6E; background: #E8F3EB; }
+.connect-row .cn { flex: 1; font-weight: 600; font-size: 14px; }
+.toggle {
+  width: 44px; height: 24px; border-radius: 12px; background: var(--hairline);
+  position: relative; border: none; cursor: pointer; transition: .2s;
+}
+.toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+  background: #fff; border-radius: 50%; transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.toggle.on { background: var(--brand-dark); }
+.toggle.on::after { left: 22px; }
