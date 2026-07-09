@@ -3,6 +3,8 @@ const ROUTES = {
   onboarding1: viewOnboarding1,
   onboarding2: viewOnboarding2,
   onboarding3: viewOnboarding3,
+  login: viewLogin,
+  signup: viewSignup,
   home: viewHome,
   memory: viewMemory,
   chat: viewChat,
@@ -29,12 +31,22 @@ function navigate(route){
 function render(){
   const s = Store.get();
   let route = currentRoute();
+  
+  const user = typeof NexusAuth !== 'undefined' ? NexusAuth.getUser() : null;
+  const isAuthRoute = route === 'login' || route === 'signup' || (route && route.startsWith('onboarding'));
 
-  if(!s.onboarded){
-    if(!route || !route.startsWith('onboarding')) route = 'onboarding1';
-  } else if(!route){
-    route = 'home';
+  if (!user) {
+    if (!isAuthRoute) route = 'login';
+  } else {
+    // If logged in, block them from seeing auth screens again
+    if (!route || route === 'login' || route === 'signup') {
+      route = s.onboarded ? 'home' : 'onboarding1';
+    } else if (!s.onboarded && !route.startsWith('onboarding')) {
+      route = 'onboarding1';
+    }
   }
+
+  if(!route) route = 'home';
   if(location.hash !== '#'+route) history.replaceState(null,'','#'+route);
 
   const view = ROUTES[route]();

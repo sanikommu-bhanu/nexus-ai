@@ -112,6 +112,35 @@ function handleDocUpload(e){
 function handleAction(action, ds, el){
   const store = Store;
   switch(action){
+    case 'doLogin': {
+      const email = document.getElementById('auth-email').value.trim();
+      const pass = document.getElementById('auth-pass').value.trim();
+      if(!email || !pass){ toast('Please enter email and password', 'error'); return; }
+      const btn = el; btn.disabled = true; btn.innerText = 'Logging in...';
+      NexusAuth.login(email, pass).catch(err => {
+        btn.disabled = false; btn.innerHTML = `Log In ${icon('arrowUpRight')}`;
+        toast(err.message, 'error');
+      });
+      break;
+    }
+    case 'doSignup': {
+      const name = document.getElementById('auth-name').value.trim();
+      const email = document.getElementById('auth-email').value.trim();
+      const pass = document.getElementById('auth-pass').value.trim();
+      if(!name || !email || !pass){ toast('Please fill all fields', 'error'); return; }
+      const btn = el; btn.disabled = true; btn.innerText = 'Signing up...';
+      NexusAuth.signup(email, pass, name).catch(err => {
+        btn.disabled = false; btn.innerHTML = `Sign Up ${icon('arrowUpRight')}`;
+        toast(err.message, 'error');
+      });
+      break;
+    }
+    case 'doLogout': {
+      NexusAuth.logout().then(() => {
+        toast('Logged out');
+      }).catch(err => toast(err.message, 'error'));
+      break;
+    }
     case 'toggleConnect': {
       store.set(s=>{ s.user.connected[ds.id] = !s.user.connected[ds.id]; });
       rerender();
@@ -326,4 +355,17 @@ Store.subscribe(()=>{
     NexusPush.syncAllReminders().catch(e=> console.warn('Reminder sync failed', e));
   }
 });
-render();
+// Wait for auth state before booting
+if(typeof NexusAuth !== 'undefined') {
+  NexusAuth.init((user) => {
+    if (user) {
+      Store.init(user.uid);
+      if (user.displayName && !Store.get().user.firstName) {
+        Store.set(s => { s.user.firstName = user.displayName.split(' ')[0]; });
+      }
+    }
+    render();
+  });
+} else {
+  render();
+}

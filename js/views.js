@@ -71,6 +71,56 @@ function viewOnboarding3(){
   return { html, mount(){} };
 }
 
+/* ---------------- AUTHENTICATION ---------------- */
+function viewLogin(){
+  const html = `
+  <div class="onb-screen">
+    <div class="onb-image-wrap short">
+      <img src="https://images.unsplash.com/photo-1512758117926-571de41473d0?auto=format&fit=crop&w=800&q=80" alt="Login" class="onb-image" />
+    </div>
+    <div class="onb-content" style="padding-top:16px;">
+      <h1 class="onb-title" style="margin-bottom:4px;">Welcome Back</h1>
+      <p class="onb-body" style="margin-bottom:20px;">Log in to access your second brain.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="input-wrap">${icon('mail','leading')}<input type="email" class="input" id="auth-email" placeholder="Email address" /></div>
+        <div class="input-wrap">${icon('key','leading')}<input type="password" class="input" id="auth-pass" placeholder="Password" /></div>
+        <button class="btn btn-primary btn-block" style="margin-top:8px;" data-action="doLogin">Log In ${icon('arrowUpRight')}</button>
+      </div>
+      
+      <div style="margin-top:24px;text-align:center;font-size:13px;color:var(--ink-soft);">
+        Don't have an account? <span style="font-weight:600;color:var(--brand-dark);cursor:pointer;" data-nav="signup">Sign Up</span>
+      </div>
+    </div>
+  </div>`;
+  return { html, mount(){} };
+}
+
+function viewSignup(){
+  const html = `
+  <div class="onb-screen">
+    <div class="onb-image-wrap short">
+      <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" alt="Signup" class="onb-image" />
+    </div>
+    <div class="onb-content" style="padding-top:16px;">
+      <h1 class="onb-title" style="margin-bottom:4px;">Create Account</h1>
+      <p class="onb-body" style="margin-bottom:20px;">Join Nexus AI today.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="input-wrap">${icon('user','leading')}<input type="text" class="input" id="auth-name" placeholder="Full Name" /></div>
+        <div class="input-wrap">${icon('mail','leading')}<input type="email" class="input" id="auth-email" placeholder="Email address" /></div>
+        <div class="input-wrap">${icon('key','leading')}<input type="password" class="input" id="auth-pass" placeholder="Password" /></div>
+        <button class="btn btn-primary btn-block" style="margin-top:8px;" data-action="doSignup">Sign Up ${icon('arrowUpRight')}</button>
+      </div>
+      
+      <div style="margin-top:24px;text-align:center;font-size:13px;color:var(--ink-soft);">
+        Already have an account? <span style="font-weight:600;color:var(--brand-dark);cursor:pointer;" data-nav="login">Log In</span>
+      </div>
+    </div>
+  </div>`;
+  return { html, mount(){} };
+}
+
 /* ---------------- HOME ---------------- */
 function greetingWord(){
   const h = new Date().getHours();
@@ -506,7 +556,8 @@ function viewProfile(){
     <div class="divider"></div>
     <div class="menu-row" data-action="openConnections"><div class="mi">${icon('wifi')}</div><div class="mt">Connected Accounts</div>${icon('chevronRight')}</div>
     <div class="menu-row" data-action="exportData"><div class="mi">${icon('download')}</div><div class="mt">Backup & Export Data</div>${icon('chevronRight')}</div>
-    <div class="menu-row danger" data-action="confirmReset"><div class="mi">${icon('logout')}</div><div class="mt">Reset Nexus AI</div></div>
+    <div class="menu-row" data-action="doLogout"><div class="mi">${icon('logout')}</div><div class="mt">Log Out</div></div>
+    <div class="menu-row danger" data-action="confirmReset" style="margin-top:24px; border-top:1px solid var(--hairline);"><div class="mi">${icon('trash')}</div><div class="mt">Reset Local Data</div></div>
   </div>
   ${BottomNav('profile')}`;
   return { html, mount(){} };
